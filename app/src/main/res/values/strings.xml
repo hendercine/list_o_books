@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">List-O-Books</string>
+
+    <string name="no_internet">No internet connection available</string>
+    <string name="items">items</string>
+    <string name="volumeInfo">volumeInfo</string>
+    <string name="title">title</string>
+    <string name="authors">authors</string>
+    <string name="totalItems">totalItems</string>
+    <string name="no_books">No books found</string>
+    <string name="message">Please enter valid book name</string>
+    <string name="written_by">Written By </string>
+    <string name="url">https://www.googleapis.com/books/v1/volumes?q=intitle:</string>
+    <string name="appId">APPID</string>
+    <string name="maxResults">maxResults</string>
+    <string name="enter_search_here">Enter Search Here</string>
+    <string name="search_button">Search</string>
+    <string name="book_title">Book Title</string>
+    <string name="author_name">Author Name</string>
+
+</resources>
