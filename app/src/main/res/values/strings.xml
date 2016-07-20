@@ -8,10 +8,10 @@
     <string name="authors">authors</string>
     <string name="totalItems">totalItems</string>
     <string name="no_books">No books found</string>
-    <string name="message">Please enter valid book name</string>
+    <string name="message">Please enter valid search</string>
     <string name="written_by">Written By </string>
-    <string name="url">https://www.googleapis.com/books/v1/volumes?q=intitle:</string>
-    <string name="appId">APPID</string>
+    <string name="url">https://www.googleapis.com/books/v1/volumes?q=</string>
+    <string name="appId">APP_ID</string>
     <string name="maxResults">maxResults</string>
     <string name="enter_search_here">Enter Search Here</string>
     <string name="search_button">Search</string>

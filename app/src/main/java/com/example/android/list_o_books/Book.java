@@ -5,19 +5,16 @@ package com.example.android.list_o_books;
  */
 public class Book {
 
-    private String mBookName;
+    private String mBookTitle;
     private String mBookAuthor;
 
-    public Book() {
-    }
-
-    public Book(String bookName, String bookAuthor) {
-        mBookName = bookName;
+    public Book(String bookTitle, String bookAuthor) {
+        mBookTitle = bookTitle;
         mBookAuthor = bookAuthor;
     }
 
-    public String getBookName() {
-        return mBookName;
+    public String getBookTitle() {
+        return mBookTitle;
     }
 
     public String getBookAuthor() {

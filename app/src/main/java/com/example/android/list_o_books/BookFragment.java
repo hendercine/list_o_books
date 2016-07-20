@@ -37,10 +37,6 @@ public class BookFragment extends Fragment {
     private BookAdapter adapter;
     private ArrayList<Book> books;
 
-    public BookFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,8 +49,8 @@ public class BookFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText bookNameText = (EditText) getActivity().findViewById(R.id.search_field);
-                String FetchBookData = bookNameText.getText().toString();
+                EditText searchText = (EditText) getActivity().findViewById(R.id.search_field);
+                String FetchBookData = searchText.getText().toString();
                 FetchBooksTask BooksTask = new FetchBooksTask();
                 ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -78,29 +74,29 @@ public class BookFragment extends Fragment {
         private final String LOG_TAG = FetchBooksTask.class.getSimpleName();
 
         private ArrayList<Book> getBooksDataFromJson(String booksJsonStr) throws JSONException {
-            final String OWM_ITEMS = getResources().getString(R.string.items);
-            final String OWM_VOLUME_INFO = getResources().getString(R.string.volumeInfo);
-            final String OWM_TITLE = getResources().getString(R.string.title);
-            final String OWM_AUTHOR = getResources().getString(R.string.authors);
-            final String OWM_TOTAL_ITEMS = getResources().getString(R.string.totalItems);
+            final String VOLUME_ITEMS = getResources().getString(R.string.items);
+            final String VOLUME_INFO = getResources().getString(R.string.volumeInfo);
+            final String VOLUME_TITLE = getResources().getString(R.string.title);
+            final String VOLUME_AUTHOR = getResources().getString(R.string.authors);
+            final String VOLUME_TOTAL_ITEMS = getResources().getString(R.string.totalItems);
             books = new ArrayList<>();
             JSONObject booksJson = new JSONObject(booksJsonStr);
 
-            String totalItems = booksJson.optString(OWM_TOTAL_ITEMS);
+            String totalItems = booksJson.optString(VOLUME_TOTAL_ITEMS);
             int totalCount = Integer.parseInt(totalItems);
             if (totalCount == 0) {
                 books.add(totalCount, new Book(getResources().getString(R.string.no_books),
                         getResources().getString(R.string.message)));
             } else {
-                JSONArray booksArray = booksJson.optJSONArray(OWM_ITEMS);
+                JSONArray booksArray = booksJson.optJSONArray(VOLUME_ITEMS);
                 for (int i = 0; i < booksArray.length(); i++) {
                     String bookAuthor = getResources().getString(R.string.written_by);
-                    String bookName;
+                    String bookTitle;
                     JSONObject bookDataObject = booksArray.getJSONObject(i);
-                    JSONObject volumeInfo = bookDataObject.getJSONObject(OWM_VOLUME_INFO);
-                    bookName = volumeInfo.optString(OWM_TITLE);
-                    bookAuthor += String.valueOf(volumeInfo.optJSONArray(OWM_AUTHOR));
-                    books.add(i, new Book(bookName, bookAuthor));
+                    JSONObject volumeInfo = bookDataObject.getJSONObject(VOLUME_INFO);
+                    bookTitle = volumeInfo.optString(VOLUME_TITLE);
+                    bookAuthor += String.valueOf(volumeInfo.optJSONArray(VOLUME_AUTHOR));
+                    books.add(i, new Book(bookTitle, bookAuthor));
                 }
             }
             return books;
@@ -118,12 +114,12 @@ public class BookFragment extends Fragment {
 
             try {
                 final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0];
-                final String APPID_PARAM = getResources().getString(R.string.appId);
+                final String APP_ID_PARAM = getResources().getString(R.string.appId);
                 final String MAX_RESULTS_PARAM = getResources().getString(R.string.maxResults);
 
                 Uri builtUri = Uri.parse(FETCH_BOOKS_URL).buildUpon()
                         .appendQueryParameter(MAX_RESULTS_PARAM, String.valueOf(numBooks))
-                        .appendQueryParameter(APPID_PARAM, BuildConfig.OPEN_GOOGLE_BOOKS_API_KEY)
+                        .appendQueryParameter(APP_ID_PARAM, BuildConfig.OPEN_GOOGLE_BOOKS_API_KEY)
                         .build();
                 URL url = new URL(builtUri.toString().replace(" ", "%20"));
 
@@ -132,7 +128,7 @@ public class BookFragment extends Fragment {
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 if (inputStream == null) {
                     return null;
                 }
@@ -140,7 +136,7 @@ public class BookFragment extends Fragment {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 if (buffer.length() == 0) {
