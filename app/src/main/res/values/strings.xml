@@ -17,5 +17,6 @@
     <string name="search_button">Search</string>
     <string name="book_title">Book Title</string>
     <string name="author_name">Author Name</string>
+    <string name="intro_text">Make a List-O-Books! Enter an Author or a Title or just a single word and touch Search!</string>
 
 </resources>
