@@ -95,7 +95,13 @@ public class BookFragment extends Fragment {
                     JSONObject bookDataObject = booksArray.getJSONObject(i);
                     JSONObject volumeInfo = bookDataObject.getJSONObject(VOLUME_INFO);
                     bookTitle = volumeInfo.optString(VOLUME_TITLE);
-                    bookAuthor += String.valueOf(volumeInfo.optJSONArray(VOLUME_AUTHOR));
+                    StringBuilder authorBuild = new StringBuilder();
+                    JSONArray authorArray = volumeInfo.getJSONArray(VOLUME_AUTHOR);
+                    for(int a=0; a<authorArray.length(); a++){
+                        if(a>0) authorBuild.append(", ");
+                        authorBuild.append(authorArray.getString(a));
+                    }
+                    bookAuthor += authorBuild.toString();
                     books.add(i, new Book(bookTitle, bookAuthor));
                 }
             }

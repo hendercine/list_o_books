@@ -9,7 +9,7 @@
     <string name="totalItems">totalItems</string>
     <string name="no_books">No books found</string>
     <string name="message">Please enter valid search</string>
-    <string name="written_by">Written By </string>
+    <string name="written_by">AUTHOR(S):&#160;</string>
     <string name="url">https://www.googleapis.com/books/v1/volumes?q=</string>
     <string name="appId">APP_ID</string>
     <string name="maxResults">maxResults</string>
