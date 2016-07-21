@@ -50,17 +50,22 @@ public class BookFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditText searchText = (EditText) getActivity().findViewById(R.id.search_field);
-                String FetchBookData = searchText.getText().toString();
-                FetchBooksTask BooksTask = new FetchBooksTask();
-                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    BooksTask.execute(FetchBookData);
-                    adapter.clear();
+                if (searchText.getText().toString().trim().equals("")) {
+                    Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.message), Toast.LENGTH_LONG).show();
+                    searchText.setError(getString(R.string.no_input));
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    String FetchBookData = searchText.getText().toString();
+                    FetchBooksTask BooksTask = new FetchBooksTask();
+                    ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        BooksTask.execute(FetchBookData);
+                        adapter.clear();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -82,10 +87,9 @@ public class BookFragment extends Fragment {
             books = new ArrayList<>();
             JSONObject booksJson = new JSONObject(booksJsonStr);
 
-            String totalItems = booksJson.optString(VOLUME_TOTAL_ITEMS);
-            int totalCount = Integer.parseInt(totalItems);
-            if (totalCount == 0) {
-                books.add(totalCount, new Book(getResources().getString(R.string.no_books),
+            int totalItems = booksJson.optInt(VOLUME_TOTAL_ITEMS);
+            if (totalItems == 0) {
+                books.add(totalItems, new Book(getResources().getString(R.string.no_books),
                         getResources().getString(R.string.message)));
             } else {
                 JSONArray booksArray = booksJson.optJSONArray(VOLUME_ITEMS);
