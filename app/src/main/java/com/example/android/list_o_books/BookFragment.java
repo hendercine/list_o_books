@@ -121,7 +121,7 @@ public class BookFragment extends Fragment {
             int numBooks = 15;
 
             try {
-                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0] + getResources().getString(R.string.projection);
+                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0];
                 final String APP_ID_PARAM = getResources().getString(R.string.appId);
                 final String MAX_RESULTS_PARAM = getResources().getString(R.string.maxResults);
 
