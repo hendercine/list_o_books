@@ -83,14 +83,14 @@ public class BookFragment extends Fragment {
             final String VOLUME_INFO = getResources().getString(R.string.volumeInfo);
             final String VOLUME_TITLE = getResources().getString(R.string.title);
             final String VOLUME_AUTHOR = getResources().getString(R.string.authors);
+            final String INPUT_ERROR = getResources().getString(R.string.message);
             final String VOLUME_TOTAL_ITEMS = getResources().getString(R.string.totalItems);
             books = new ArrayList<>();
             JSONObject booksJson = new JSONObject(booksJsonStr);
 
             int totalItems = booksJson.optInt(VOLUME_TOTAL_ITEMS);
             if (totalItems == 0) {
-                books.add(totalItems, new Book(getResources().getString(R.string.no_books),
-                        getResources().getString(R.string.message)));
+                Toast.makeText(getActivity().getApplication(), INPUT_ERROR, Toast.LENGTH_LONG).show();
             } else {
                 JSONArray booksArray = booksJson.optJSONArray(VOLUME_ITEMS);
                 for (int i = 0; i < booksArray.length(); i++) {
@@ -101,14 +101,15 @@ public class BookFragment extends Fragment {
                     bookTitle = volumeInfo.optString(VOLUME_TITLE);
                     StringBuilder authorBuild = new StringBuilder();
                     JSONArray authorArray = volumeInfo.getJSONArray(VOLUME_AUTHOR);
-                    for(int a=0; a<authorArray.length(); a++){
-                        if(a>0) authorBuild.append(", ");
-                        authorBuild.append(authorArray.getString(a));
-                    }
+                    for (int a = 0; a < authorArray.length(); a++) {
+                        if (a > 0)
+                            authorBuild.append(", ");
+                            authorBuild.append(authorArray.getString(a));
+                        }
                     bookAuthor += authorBuild.toString();
                     books.add(i, new Book(bookTitle, bookAuthor));
+                    }
                 }
-            }
             return books;
         }
 
@@ -123,7 +124,7 @@ public class BookFragment extends Fragment {
             int numBooks = 15;
 
             try {
-                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0];
+                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0] + getResources().getString(R.string.projection);
                 final String APP_ID_PARAM = getResources().getString(R.string.appId);
                 final String MAX_RESULTS_PARAM = getResources().getString(R.string.maxResults);
 
@@ -172,7 +173,7 @@ public class BookFragment extends Fragment {
             try {
                 return getBooksDataFromJson(booksJsonStr);
             } catch (JSONException e) {
-                Log.e(LOG_TAG, e.getMessage(), e);
+                Log.e(LOG_TAG, "Invalid Input", e);
                 e.printStackTrace();
             }
             return null;
@@ -183,6 +184,7 @@ public class BookFragment extends Fragment {
             if (books != null) {
                 adapter.addAll(books);
             }
+
         }
 
     }

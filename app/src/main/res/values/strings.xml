@@ -12,6 +12,7 @@
     <string name="no_input">Text input is required!</string>
     <string name="written_by">AUTHOR(S):&#160;</string>
     <string name="url">https://www.googleapis.com/books/v1/volumes?q=</string>
+    <string name="projection">&amp;projection=lite</string>
     <string name="appId">APP_ID</string>
     <string name="maxResults">maxResults</string>
     <string name="enter_search_here">Enter Search Here</string>
