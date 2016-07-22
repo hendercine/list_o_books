@@ -104,12 +104,12 @@ public class BookFragment extends Fragment {
                     for (int a = 0; a < authorArray.length(); a++) {
                         if (a > 0)
                             authorBuild.append(", ");
-                            authorBuild.append(authorArray.getString(a));
-                        }
+                        authorBuild.append(authorArray.getString(a));
+                    }
                     bookAuthor += authorBuild.toString();
                     books.add(i, new Book(bookTitle, bookAuthor));
-                    }
                 }
+            }
             return books;
         }
 
@@ -173,7 +173,7 @@ public class BookFragment extends Fragment {
             try {
                 return getBooksDataFromJson(booksJsonStr);
             } catch (JSONException e) {
-                Log.e(LOG_TAG, "Invalid Input", e);
+                Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
             }
             return null;
@@ -188,4 +188,5 @@ public class BookFragment extends Fragment {
         }
 
     }
+
 }
