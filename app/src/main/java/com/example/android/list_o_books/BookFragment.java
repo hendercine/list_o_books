@@ -83,15 +83,12 @@ public class BookFragment extends Fragment {
             final String VOLUME_INFO = getResources().getString(R.string.volumeInfo);
             final String VOLUME_TITLE = getResources().getString(R.string.title);
             final String VOLUME_AUTHOR = getResources().getString(R.string.authors);
-            final String INPUT_ERROR = getResources().getString(R.string.message);
             final String VOLUME_TOTAL_ITEMS = getResources().getString(R.string.totalItems);
             books = new ArrayList<>();
             JSONObject booksJson = new JSONObject(booksJsonStr);
 //TODO: Parse the JSON for cover thumbnails and modify Book Object to display the results in the xml ImageView.
             int totalItems = booksJson.optInt(VOLUME_TOTAL_ITEMS);
-            if (totalItems == 0) {
-                Toast.makeText(getActivity().getApplication(), INPUT_ERROR, Toast.LENGTH_LONG).show();
-            } else {
+            if (totalItems != 0) {
                 JSONArray booksArray = booksJson.optJSONArray(VOLUME_ITEMS);
                 for (int i = 0; i < booksArray.length(); i++) {
                     String bookAuthor = getResources().getString(R.string.written_by);
@@ -183,10 +180,12 @@ public class BookFragment extends Fragment {
         protected void onPostExecute(ArrayList<Book> books) {
             if (books != null) {
                 adapter.addAll(books);
+            } else {
+                Toast.makeText(getActivity().getApplication(), getResources().getString(R.string.message), Toast.LENGTH_LONG).show();
+
             }
 
         }
 
     }
-
 }
