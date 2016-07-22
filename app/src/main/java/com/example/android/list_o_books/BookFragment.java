@@ -118,15 +118,12 @@ public class BookFragment extends Fragment {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String booksJsonStr = null;
-            int numBooks = 15;
 
             try {
-                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0] + getResources().getString(R.string.projection);
+                final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0] + getResources().getString(R.string.maxResults);;
                 final String APP_ID_PARAM = getResources().getString(R.string.appId);
-                final String MAX_RESULTS_PARAM = getResources().getString(R.string.maxResults);
 
                 Uri builtUri = Uri.parse(FETCH_BOOKS_URL).buildUpon()
-                        .appendQueryParameter(MAX_RESULTS_PARAM, String.valueOf(numBooks))
                         .appendQueryParameter(APP_ID_PARAM, BuildConfig.OPEN_GOOGLE_BOOKS_API_KEY)
                         .build();
                 URL url = new URL(builtUri.toString().replace(" ", "%20"));
@@ -187,5 +184,10 @@ public class BookFragment extends Fragment {
 
         }
 
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("key", books);
+        super.onSaveInstanceState(outState);
     }
 }

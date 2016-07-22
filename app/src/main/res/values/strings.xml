@@ -14,7 +14,7 @@
     <string name="url">https://www.googleapis.com/books/v1/volumes?q=</string>
     <string name="projection">&amp;projection=lite</string>
     <string name="appId">APP_ID</string>
-    <string name="maxResults">maxResults</string>
+    <string name="maxResults">maxResults=40</string>
     <string name="enter_search_here">Enter Search Here</string>
     <string name="search_button">Search</string>
     <string name="book_title">Book Title</string>
