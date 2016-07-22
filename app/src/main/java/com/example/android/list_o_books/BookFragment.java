@@ -87,7 +87,7 @@ public class BookFragment extends Fragment {
             final String VOLUME_TOTAL_ITEMS = getResources().getString(R.string.totalItems);
             books = new ArrayList<>();
             JSONObject booksJson = new JSONObject(booksJsonStr);
-
+//TODO: Parse the JSON for cover thumbnails and modify Book Object to display the results in the xml ImageView.
             int totalItems = booksJson.optInt(VOLUME_TOTAL_ITEMS);
             if (totalItems == 0) {
                 Toast.makeText(getActivity().getApplication(), INPUT_ERROR, Toast.LENGTH_LONG).show();
