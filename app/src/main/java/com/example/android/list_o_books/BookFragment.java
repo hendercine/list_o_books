@@ -120,7 +120,9 @@ public class BookFragment extends Fragment {
             String booksJsonStr = null;
 
             try {
+
                 final String FETCH_BOOKS_URL = getResources().getString(R.string.url) + params[0] + getResources().getString(R.string.maxResults);;
+
                 final String APP_ID_PARAM = getResources().getString(R.string.appId);
 
                 Uri builtUri = Uri.parse(FETCH_BOOKS_URL).buildUpon()
